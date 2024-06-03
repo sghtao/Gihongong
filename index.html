@@ -51,7 +51,7 @@
             cursor: pointer;
             border: none;
         }
-        .book-list, .title-list {
+        .book-list {
             list-style-type: none;
             padding: 0;
         }
@@ -61,21 +61,11 @@
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 10px;
-            position: relative;
         }
         .book-item a {
             text-decoration: none;
             color: #007bff;
             font-weight: bold;
-        }
-        .edit-btn,
-        .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 5px;
-            cursor: pointer;
-            font-size: 12px;
         }
     </style>
 </head>
@@ -89,10 +79,7 @@
             <textarea id="bookReview" placeholder="북로그" required></textarea>
             <button type="submit">추가</button>
         </form>
-        <h2>북로그 목록</h2>
         <ul class="book-list" id="bookList"></ul>
-        <h2>책 제목 목록</h2>
-        <ul class="title-list" id="titleList"></ul>
     </div>
 
     <script>
@@ -125,8 +112,6 @@
             newBookItem.classList.add('book-item');
             // '\n'을 <br> 태그로 대체하여 줄바꿈 처리
             newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by ${bookAuthor} on ${readingDate}<p id="${bookTitle}">${bookReview.replace(/\n/g, '<br>')}</p>`;
-            // 수정 및 삭제 버튼 추가
-            newBookItem.innerHTML += `<span class="edit-btn" onclick="editBook('${bookTitle}')">수정</span><span class="delete-btn" onclick="deleteBook('${bookTitle}')">삭제</span>`;
             
             bookList.insertBefore(newBookItem, bookList.firstChild);
 
@@ -138,24 +123,7 @@
             document.getElementById('bookAuthor').value = '';
             document.getElementById('readingDate').value = '';
             document.getElementById('bookReview').value = '';
-
-            // 책 제목 목록 업데이트
-            updateTitleList(bookTitle);
         });
-
-        // 책 제목 목록 업데이트 함수
-        function updateTitleList(title) {
-            const titleList = document.getElementById('titleList');
-            const newTitleItem = document.createElement('li');
-            newTitleItem.innerHTML = `<a href="#${title}">${title}</a>`;
-            titleList.appendChild(newTitleItem);
-
-            // 모든 책 제목을 배열로 가져옴
-            const titles = Array.from(titleList.getElementsByTagName('a')).map(a => a.innerText);
-            // 책 제목을 오름차순으로 정렬
-            titles.sort((a, b) => a.localeCompare(b));
-            // 정렬된 책 제목 목록으로 교체
-            titleList.innerHTML = '';
-            titles.forEach(title => {
-                const listItem = document.createElement('li');
-                listItem
+    </script>
+</body>
+</html>
