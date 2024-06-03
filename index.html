@@ -83,6 +83,23 @@
     </div>
 
     <script>
+        // 입력된 기록을 로컬 스토리지에 저장하고 불러오는 함수
+        function saveData() {
+            const bookList = document.getElementById('bookList').innerHTML;
+            localStorage.setItem('bookList', bookList);
+        }
+
+        function loadData() {
+            const bookList = localStorage.getItem('bookList');
+            if (bookList) {
+                document.getElementById('bookList').innerHTML = bookList;
+            }
+        }
+
+        // 페이지가 로드될 때 저장된 데이터를 불러옴
+        window.onload = loadData;
+
+        // 폼 제출 시 실행되는 함수
         document.querySelector('.book-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const bookTitle = document.getElementById('bookTitle').value;
@@ -93,10 +110,15 @@
             const bookList = document.getElementById('bookList');
             const newBookItem = document.createElement('li');
             newBookItem.classList.add('book-item');
-            newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by ${bookAuthor} on ${readingDate}<p id="${bookTitle}">${bookReview}</p>`;
+            // '\n'을 <br> 태그로 대체하여 줄바꿈 처리
+            newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by ${bookAuthor} on ${readingDate}<p id="${bookTitle}">${bookReview.replace(/\n/g, '<br>')}</p>`;
             
             bookList.insertBefore(newBookItem, bookList.firstChild);
 
+            // 입력된 기록을 로컬 스토리지에 저장
+            saveData();
+
+            // 폼 입력 필드 초기화
             document.getElementById('bookTitle').value = '';
             document.getElementById('bookAuthor').value = '';
             document.getElementById('readingDate').value = '';
@@ -105,3 +127,4 @@
     </script>
 </body>
 </html>
+
