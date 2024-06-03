@@ -5,40 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>기호의 독서기록</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap');
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
+            font-family: 'Comic Neue', cursive;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 90%;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .book-form input, .book-form button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: block;
+            font-size: 14px;
+        }
+        .book-form button {
+            background-color: #ff6f61;
+            color: white;
+            cursor: pointer;
+            border: none;
         }
         .book-list {
             list-style-type: none;
             padding: 0;
         }
         .book-item {
-            background-color: #ffffff;
-            border: 1px solid #dee2e6;
+            background-color: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 15px;
             padding: 15px;
             margin-bottom: 10px;
-            border-radius: 5px;
         }
-        .book-form {
-            margin-bottom: 20px;
-        }
-        .book-form input, .book-form button {
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-        }
-        .book-form button {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
+        .book-item a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -47,7 +69,9 @@
         <h1>기호의 독서기록</h1>
         <form class="book-form">
             <input type="text" id="bookTitle" placeholder="책 제목" required>
-            <input type="text" id="bookReview" placeholder="북로그" required>
+            <input type="text" id="bookAuthor" placeholder="저자" required>
+            <input type="date" id="readingDate" placeholder="날짜" required>
+            <textarea id="bookReview" placeholder="독서 기록" required></textarea>
             <button type="submit">추가</button>
         </form>
         <ul class="book-list" id="bookList"></ul>
@@ -57,16 +81,20 @@
         document.querySelector('.book-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const bookTitle = document.getElementById('bookTitle').value;
+            const bookAuthor = document.getElementById('bookAuthor').value;
+            const readingDate = document.getElementById('readingDate').value;
             const bookReview = document.getElementById('bookReview').value;
 
             const bookList = document.getElementById('bookList');
             const newBookItem = document.createElement('li');
             newBookItem.classList.add('book-item');
-            newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong><p id="${bookTitle}">${bookReview}</p>`;
+            newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by ${bookAuthor} on ${readingDate}<p id="${bookTitle}">${bookReview}</p>`;
             
             bookList.insertBefore(newBookItem, bookList.firstChild);
 
             document.getElementById('bookTitle').value = '';
+            document.getElementById('bookAuthor').value = '';
+            document.getElementById('readingDate').value = '';
             document.getElementById('bookReview').value = '';
         });
     </script>
