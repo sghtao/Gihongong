@@ -82,6 +82,10 @@
 <body>
     <div class="container">
         <h1>기호의 독서기록</h1>
+        <h2>책 제목 목록</h2>
+        <ul class="title-list" id="titleList"></ul>
+        <h2>북로그 목록</h2>
+        <ul class="book-list" id="bookList"></ul>
         <form class="book-form">
             <input type="text" id="bookTitle" placeholder="책 제목" required>
             <input type="text" id="bookAuthor" placeholder="저자" required>
@@ -89,10 +93,6 @@
             <textarea id="bookReview" placeholder="북로그" required></textarea>
             <button type="submit">추가</button>
         </form>
-        <h2>북로그 목록</h2>
-        <ul class="book-list" id="bookList"></ul>
-        <h2>책 제목 목록</h2>
-        <ul class="title-list" id="titleList"></ul>
     </div>
 
     <script>
@@ -158,4 +158,4 @@
             titleList.innerHTML = '';
             titles.forEach(title => {
                 const listItem = document.createElement('li');
-                listItem
+                listItem.innerHTML = `<a href="#${title}">${title}</a>`;
