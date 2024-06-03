@@ -61,11 +61,21 @@
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 10px;
+            position: relative;
         }
         .book-item a {
             text-decoration: none;
             color: #007bff;
             font-weight: bold;
+        }
+        .edit-btn,
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -115,6 +125,8 @@
             newBookItem.classList.add('book-item');
             // '\n'을 <br> 태그로 대체하여 줄바꿈 처리
             newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by ${bookAuthor} on ${readingDate}<p id="${bookTitle}">${bookReview.replace(/\n/g, '<br>')}</p>`;
+            // 수정 및 삭제 버튼 추가
+            newBookItem.innerHTML += `<span class="edit-btn" onclick="editBook('${bookTitle}')">수정</span><span class="delete-btn" onclick="deleteBook('${bookTitle}')">삭제</span>`;
             
             bookList.insertBefore(newBookItem, bookList.firstChild);
 
@@ -146,11 +158,4 @@
             titleList.innerHTML = '';
             titles.forEach(title => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = `<a href="#${title}">${title}</a>`;
-                titleList.appendChild(listItem);
-            });
-        }
-    </script>
-</body>
-</html>
-
+                listItem
