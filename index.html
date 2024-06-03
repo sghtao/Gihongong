@@ -51,7 +51,7 @@
             cursor: pointer;
             border: none;
         }
-        .book-list {
+        .book-list, .title-list {
             list-style-type: none;
             padding: 0;
         }
@@ -76,10 +76,13 @@
             <input type="text" id="bookTitle" placeholder="책 제목" required>
             <input type="text" id="bookAuthor" placeholder="저자" required>
             <input type="date" id="readingDate" placeholder="날짜" required>
-            <textarea id="bookReview" placeholder="기호의 북로그" required></textarea>
+            <textarea id="bookReview" placeholder="북로그" required></textarea>
             <button type="submit">추가</button>
         </form>
+        <h2>북로그 목록</h2>
         <ul class="book-list" id="bookList"></ul>
+        <h2>책 제목 목록</h2>
+        <ul class="title-list" id="titleList"></ul>
     </div>
 
     <script>
@@ -123,7 +126,30 @@
             document.getElementById('bookAuthor').value = '';
             document.getElementById('readingDate').value = '';
             document.getElementById('bookReview').value = '';
+
+            // 책 제목 목록 업데이트
+            updateTitleList(bookTitle);
         });
+
+        // 책 제목 목록 업데이트 함수
+        function updateTitleList(title) {
+            const titleList = document.getElementById('titleList');
+            const newTitleItem = document.createElement('li');
+            newTitleItem.innerHTML = `<a href="#${title}">${title}</a>`;
+            titleList.appendChild(newTitleItem);
+
+            // 모든 책 제목을 배열로 가져옴
+            const titles = Array.from(titleList.getElementsByTagName('a')).map(a => a.innerText);
+            // 책 제목을 오름차순으로 정렬
+            titles.sort((a, b) => a.localeCompare(b));
+            // 정렬된 책 제목 목록으로 교체
+            titleList.innerHTML = '';
+            titles.forEach(title => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="#${title}">${title}</a>`;
+                titleList.appendChild(listItem);
+            });
+        }
     </script>
 </body>
 </html>
