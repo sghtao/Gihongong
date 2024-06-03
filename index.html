@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Log</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .book-item {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .book-form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>기호의 독서기록</h1>
+        <form class="book-form">
+            <input type="text" id="bookTitle" placeholder="책 제목" required>
+            <input type="text" id="bookReview" placeholder="독서 기록" required>
+            <button type="submit">추가</button>
+        </form>
+        <ul class="book-list" id="bookList"></ul>
+    </div>
+
+    <script>
+        document.querySelector('.book-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const bookTitle = document.getElementById('bookTitle').value;
+            const bookReview = document.getElementById('bookReview').value;
+
+            const bookList = document.getElementById('bookList');
+            const newBookItem = document.createElement('li');
+            newBookItem.classList.add('book-item');
+            newBookItem.innerHTML = `<strong>${bookTitle}</strong><p>${bookReview}</p>`;
+            
+            bookList.insertBefore(newBookItem, bookList.firstChild);
+
+            document.getElementById('bookTitle').value = '';
+            document.getElementById('bookReview').value = '';
+        });
+    </script>
+</body>
+</html>
