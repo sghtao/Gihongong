@@ -61,11 +61,19 @@
             border-radius: 15px;
             padding: 15px;
             margin-bottom: 10px;
+            position: relative;
         }
         .book-item a {
             text-decoration: none;
             color: #007bff;
             font-weight: bold;
+        }
+        .edit-btn, .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            color: #007bff;
         }
     </style>
 </head>
@@ -94,6 +102,37 @@
             if (bookList) {
                 document.getElementById('bookList').innerHTML = bookList;
             }
+            // 수정 버튼에 이벤트 리스너 추가
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const listItem = this.parentElement;
+                    const bookTitle = listItem.querySelector('strong a').innerText;
+                    const bookAuthor = listItem.querySelector('.author').innerText;
+                    const readingDate = listItem.querySelector('.date').innerText;
+                    const bookReview = listItem.querySelector('p').innerText;
+
+                    document.getElementById('bookTitle').value = bookTitle;
+                    document.getElementById('bookAuthor').value = bookAuthor;
+                    document.getElementById('readingDate').value = readingDate;
+                    document.getElementById('bookReview').value = bookReview;
+
+                    // 삭제 후 다시 저장
+                    listItem.remove();
+                    saveData();
+                });
+            });
+
+            // 삭제 버튼에 이벤트 리스너 추가
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const listItem = this.parentElement;
+                    listItem.remove();
+                    // 다시 저장
+                    saveData();
+                });
+            });
         }
 
         // 페이지가 로드될 때 저장된 데이터를 불러옴
@@ -111,7 +150,7 @@
             const newBookItem = document.createElement('li');
             newBookItem.classList.add('book-item');
             // '\n'을 <br> 태그로 대체하여 줄바꿈 처리
-            newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by ${bookAuthor} on ${readingDate}<p id="${bookTitle}">${bookReview.replace(/\n/g, '<br>')}</p>`;
+            newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by <span class="author">${bookAuthor}</span> on <span class="date">${readingDate}</span><p>${bookReview.replace(/\n/g, '<br>')}</p><button class="edit-btn">수정</button><button class="delete-btn">삭제</button>`;
             
             bookList.insertBefore(newBookItem, bookList.firstChild);
 
@@ -123,7 +162,11 @@
             document.getElementById('bookAuthor').value = '';
             document.getElementById('readingDate').value = '';
             document.getElementById('bookReview').value = '';
-        });
-    </script>
-</body>
-</html>
+
+            // 수정 및 삭제 버튼에 이벤트 리스너 추가
+            newBookItem.querySelector('.edit-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const listItem = this.parentElement;
+                const bookTitle = listItem.querySelector('strong a').innerText;
+                const bookAuthor = listItem.querySelector('.author').innerText;
+                const readingDate = listItem.querySelector('.date').
