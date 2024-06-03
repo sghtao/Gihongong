@@ -31,7 +31,7 @@
             font-size: 24px;
             margin-bottom: 20px;
         }
-        .book-form input, .book-form button, .book-form textarea {
+        .book-form input, .book-form textarea {
             width: calc(100% - 20px);
             padding: 10px;
             margin: 10px auto;
@@ -50,6 +50,7 @@
             color: white;
             cursor: pointer;
             border: none;
+            width: 100%; /* 버튼을 입력 필드와 같은 너비로 설정 */
         }
         .book-list {
             list-style-type: none;
@@ -66,6 +67,9 @@
             text-decoration: none;
             color: #007bff;
             font-weight: bold;
+        }
+        .book-item a.button {
+            display: none; /* 버튼을 안 보이게 설정 */
         }
     </style>
 </head>
@@ -111,7 +115,7 @@
             const newBookItem = document.createElement('li');
             newBookItem.classList.add('book-item');
             // '\n'을 <br> 태그로 대체하여 줄바꿈 처리
-            newBookItem.innerHTML = `<strong><a href="#${bookTitle}">${bookTitle}</a></strong> by ${bookAuthor} on ${readingDate}<p id="${bookTitle}">${bookReview.replace(/\n/g, '<br>')}</p>`;
+            newBookItem.innerHTML = `<strong>${bookTitle}</strong> by ${bookAuthor} on ${readingDate}<p>${bookReview.replace(/\n/g, '<br>')}</p>`;
             
             bookList.insertBefore(newBookItem, bookList.firstChild);
 
