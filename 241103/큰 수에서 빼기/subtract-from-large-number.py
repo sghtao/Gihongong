@@ -3,5 +3,7 @@ a = int(arr[0])
 b = int(arr[1])
 if a > b:
     print(a-b)
-if a < b:
+elif a < b:
     print(b-a)
+else:
+    print(a-b)
