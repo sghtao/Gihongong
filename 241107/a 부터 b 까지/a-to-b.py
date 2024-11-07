@@ -9,4 +9,6 @@ while a < b:
         a *= 2
     else:
         a += 3
-    print(a, end = " ")
+    
+    if a <= b:
+        print(a, end = " ")
