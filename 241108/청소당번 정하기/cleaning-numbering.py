@@ -11,9 +11,10 @@ for i in range(n):
         restroom += 1
     elif i % 12 != 0 and i % 6 == 0:
         corridor += 1
-    elif i % 2 == 0:
-        classroom += 1
     elif i % 3 == 0:
         corridor += 1
+    elif i % 2 == 0:
+        classroom += 1
+    
 
 print(classroom, corridor, restroom)
