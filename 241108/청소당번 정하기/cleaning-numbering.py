@@ -9,7 +9,7 @@ for i in range(n):
         pass
     elif i % 12 == 0:
         restroom += 1
-    elif i % 12 != 0 and i % 6 == 0:
+    elif  i % 6 == 0:
         corridor += 1
     elif i % 3 == 0:
         corridor += 1
