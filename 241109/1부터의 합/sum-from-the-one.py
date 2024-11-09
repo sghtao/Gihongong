@@ -5,4 +5,4 @@ for i in range(1, 101):
     if sum_var >= n:
         break
 
-print(sum_var)
+print(i)
