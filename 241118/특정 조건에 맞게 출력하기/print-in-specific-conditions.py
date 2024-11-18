@@ -9,6 +9,8 @@ for i in arr:
         else:
             i //= 2
             arr1.append(i)
+    else:
+        break
 
 
 for i in arr1:
