@@ -2,7 +2,9 @@ arr = list(map(int, input().split()))
 arr1 = [0] * 9
 
 for i in arr:
-    if i < 10:
+    if i == 0:
+        break
+    elif i < 10:
         pass
     else:
         n = i // 10
